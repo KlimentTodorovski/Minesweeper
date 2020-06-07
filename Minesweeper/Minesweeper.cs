@@ -19,14 +19,14 @@ namespace Minesweeper
         bool GameOver = false;
 
         int Start_x, Start_y;
-        int Height = 5, Width = 5;
+        int Height = 4, Width = 4;
 
         int ButtonSize = 30;
         int DistanceBetween = 30;
 
-        int Mines = 5;
+        int Mines = 3;
         int flag_value = 9;
-        int Flags = 10;
+        int Flags = 3;
 
         Point ClickCordination;
 
@@ -48,14 +48,6 @@ namespace Minesweeper
         {
             CreateButtons(Width, Height);
             GenerateMap(Width, Height, Mines);
-            for (int i = 1; i <= 5; i++)
-            {
-                for (int j = 1; j <= 5; j++)
-                {
-                    label1.Text += ButtonProperties[i, j];
-                }
-                label1.Text += "\n";
-            }
             SetMapNumbers(Width, Height);
         }
 
@@ -99,30 +91,19 @@ namespace Minesweeper
 
         void GenerateMap(int x, int y, int mines)
         {
-            Random rand = new Random();
-            List<int> coordx = new List<int>();
-            List<int> coordy = new List<int>();
-
-            while (mines > 0)
+            Random random = new Random();
+            while(mines > 0)
             {
-                coordx.Clear();
-                coordy.Clear();
-
-                for (int i = 1; i <= x; i++)
-                    for (int j = 1; j <= y; j++)
-                        if (ButtonProperties[i, j] != -1)
-                        {
-                            coordx.Add(i);
-                            coordy.Add(j);
-                        }
-
-                int randNum = rand.Next(0, coordx.Count);
-                label2.Text = randNum.ToString();
-                ButtonProperties[coordx[randNum], coordy[randNum]] = -1;
-                MessageBox.Show(coordx[randNum].ToString() + coordy[randNum].ToString());
-                buttons[coordx[randNum], coordy[randNum]].Text = "-1";
-                //saved_btn_prop[coordx[randNum], coordy[randNum]] = -1;
-                mines--;
+                int randomIntegerX = (int)(random.NextDouble() * x) + 1;
+                int randomIntegerY = (int)(random.NextDouble() * y) + 1;
+                if (ButtonProperties[randomIntegerX, randomIntegerY] == -1)
+                    continue;
+                else
+                {
+                    ButtonProperties[randomIntegerX, randomIntegerY] = -1;
+                    mines--;
+                }
+                buttons[randomIntegerX, randomIntegerY].Text = "-1";
             }
         }
 
@@ -132,7 +113,7 @@ namespace Minesweeper
                 for (int j = 1; j <= y; j++)
                 {
                     buttons[i, j] = new Button();
-                    buttons[i, j].SetBounds(i * ButtonSize + Start_x, j * ButtonSize + Start_y, DistanceBetween, DistanceBetween);
+                    buttons[i, j].SetBounds(j * ButtonSize + Start_x, i * ButtonSize + Start_y, DistanceBetween, DistanceBetween);
                     buttons[i, j].Click += new EventHandler(OneClick);
                     buttons[i, j].MouseUp += new MouseEventHandler(RightClick);
                     buttons[i, j].Text = "0";
