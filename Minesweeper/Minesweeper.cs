@@ -10,28 +10,82 @@ using System.Windows.Forms;
 
 namespace Minesweeper
 {
+    
     public partial class Minesweeper : Form
     {
+        // Matrix of buttons for the gameplay ????????????
         Button[,] buttons = new Button[41, 41];
+        // Matrix of int using them as help for the calculations ????????
         int[,] ButtonProperties = new int[41, 41];
 
+        // FirstClick can't be on bomb 
         bool FirstPlay = true;
+        // GameOver bool for finishing the game with fail 
         bool GameOver = false;
 
+        // Start coordinants for buttons marked as x,y
         int Start_x, Start_y;
+        // Width an Height of the map ??????????????
         int Height = 4, Width = 4;
 
+        // The size of the button
         int ButtonSize = 30;
+        // Distance between every button in all directions 
         int DistanceBetween = 30;
 
+        
+        // Number of mines ?????????
         int Mines = 3;
+        // Development value for flag 
         int flag_value = 9;
+        // Number of flags 
+        // number of flags must be always mines=flags
         int Flags = 3;
 
+        // ClickCordinatiton for x and y values of our mouse when we click smth 
         Point ClickCordination;
 
+
+        // Simple helpful array for checking all the neighbours of button
+        //using x
         int[] PointsAroundX = { 1, 0, -1, 0, 1, -1, -1, 1 };
+        // usiing y
         int[] PointsAroundY = { 0, 1, 0, -1, 1, -1, 1, -1 };
+
+
+        //After we gather all the needed information about the start of the game 
+        //we neeed to generate the map which is a matrix of buttons 
+        // and set the bombs and number of it in the background
+        // in another matrix which we use as help to create game 
+
+        private void StartGame()
+        {
+            // Creating the map od buttons 
+            CreateButtons(Width, Height);
+            // Generating the bombs on map 
+            GenerateMap(Width, Height, Mines);
+            // Using background map as development help 
+            SetMapNumbers(Width, Height);
+        }
+
+        void CreateButtons(int x, int y)
+        {
+            for (int i = 1; i <= x; i++)
+                for (int j = 1; j <= y; j++)
+                {
+                    buttons[i, j] = new Button();
+                    buttons[i, j].SetBounds(j * ButtonSize + Start_x, i * ButtonSize + Start_y, DistanceBetween, DistanceBetween);
+                    buttons[i, j].Click += new EventHandler(OneClick);
+                    buttons[i, j].MouseUp += new MouseEventHandler(RightClick);
+                    buttons[i, j].Text = "0";
+                    ButtonProperties[i, j] = 0;
+                    //saved_btn_prop[i, j] = 0;
+                    buttons[i, j].TabStop = false;
+                    Controls.Add(buttons[i, j]);
+                }
+        }
+
+
 
         private void Start_Click(object sender, EventArgs e)
         {
@@ -44,12 +98,7 @@ namespace Minesweeper
             }
         }
 
-        private void StartGame()
-        {
-            CreateButtons(Width, Height);
-            GenerateMap(Width, Height, Mines);
-            SetMapNumbers(Width, Height);
-        }
+        
 
         private void SetMapNumbers(int width, int height)
         {
@@ -107,22 +156,7 @@ namespace Minesweeper
             }
         }
 
-        void CreateButtons(int x, int y)
-        {
-            for (int i = 1; i <= x; i++)
-                for (int j = 1; j <= y; j++)
-                {
-                    buttons[i, j] = new Button();
-                    buttons[i, j].SetBounds(j * ButtonSize + Start_x, i * ButtonSize + Start_y, DistanceBetween, DistanceBetween);
-                    buttons[i, j].Click += new EventHandler(OneClick);
-                    buttons[i, j].MouseUp += new MouseEventHandler(RightClick);
-                    buttons[i, j].Text = "0";
-                    ButtonProperties[i, j] = 0;
-                    //saved_btn_prop[i, j] = 0;
-                    buttons[i, j].TabStop = false;
-                    Controls.Add(buttons[i, j]);
-                }
-        }
+        
 
         private void RightClick(object sender, MouseEventArgs e)
         {
