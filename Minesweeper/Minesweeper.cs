@@ -79,7 +79,7 @@ namespace Minesweeper
                     buttons[i, j].Click += new EventHandler(OneClick);
                     buttons[i, j].MouseUp += new MouseEventHandler(RightClick);
                     //Debug help
-                    //buttons[i, j].Text = "0";
+                    buttons[i, j].Text = "0";
                     ButtonProperties[i, j] = 0;
                     //saved_btn_prop[i, j] = 0;
                     buttons[i, j].TabStop = false;
