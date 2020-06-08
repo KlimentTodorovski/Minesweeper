@@ -75,9 +75,11 @@ namespace Minesweeper
                 {
                     buttons[i, j] = new Button();
                     buttons[i, j].SetBounds(j * ButtonSize + Start_x, i * ButtonSize + Start_y, DistanceBetween, DistanceBetween);
+                    // adding the event for discovering buttons and putting flags on them
                     buttons[i, j].Click += new EventHandler(OneClick);
                     buttons[i, j].MouseUp += new MouseEventHandler(RightClick);
-                    buttons[i, j].Text = "0";
+                    //Debug help
+                    //buttons[i, j].Text = "0";
                     ButtonProperties[i, j] = 0;
                     //saved_btn_prop[i, j] = 0;
                     buttons[i, j].TabStop = false;
