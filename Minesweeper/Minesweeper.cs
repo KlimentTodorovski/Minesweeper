@@ -19,6 +19,7 @@ namespace Minesweeper
         int[,] ButtonProperties = new int[41, 41];
 
         // FirstClick can't be on bomb 
+        //bla bla bla
         bool FirstPlay = true;
         // GameOver bool for finishing the game with fail 
         bool GameOver = false;
