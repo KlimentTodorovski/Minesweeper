@@ -46,16 +46,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Difficulty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Difficulty.Designer.cs">
+      <DependentUpon>Difficulty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HowToPlayTheGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HowToPlayTheGame.Designer.cs">
+      <DependentUpon>HowToPlayTheGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Minesweeper.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Minesweeper.Designer.cs">
       <DependentUpon>Minesweeper.cs</DependentUpon>
     </Compile>
+    <Compile Include="NumberOfBombs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberOfBombs.Designer.cs">
+      <DependentUpon>NumberOfBombs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartingMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartingMenu.Designer.cs">
+      <DependentUpon>StartingMenu.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Difficulty.resx">
+      <DependentUpon>Difficulty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HowToPlayTheGame.resx">
+      <DependentUpon>HowToPlayTheGame.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Minesweeper.resx">
       <DependentUpon>Minesweeper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberOfBombs.resx">
+      <DependentUpon>NumberOfBombs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -65,7 +98,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StartingMenu.resx">
+      <DependentUpon>StartingMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -78,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\ms.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

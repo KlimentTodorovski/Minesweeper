@@ -12,9 +12,10 @@ D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\bin\Debug\Minesweeper.exe.co
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\bin\Debug\Minesweeper.exe
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\bin\Debug\Minesweeper.pdb
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csprojAssemblyReference.cache
-D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Minesweeper.resources
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Properties.Resources.resources
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.GenerateResource.cache
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.CoreCompileInputs.cache
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.exe
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.pdb
+D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.GamaMain.resources
+D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.StartingMenu.resources

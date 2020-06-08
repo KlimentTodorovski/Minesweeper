@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Minesweeper
 {
     
-    public partial class Minesweeper : Form
+    public partial class GamaMain : Form
     {
         // Matrix of buttons for the gameplay ????????????
         Button[,] buttons = new Button[41, 41];
@@ -374,7 +374,13 @@ namespace Minesweeper
             Start_y = (this.Size.Height - (Height + 2) * DistanceBetween) / 2;
         }
 
-        public Minesweeper()
+        // Menu option for exiting the game 
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        public GamaMain()
         {
             InitializeComponent();
         }
