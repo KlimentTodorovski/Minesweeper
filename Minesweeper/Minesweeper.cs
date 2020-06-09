@@ -26,8 +26,10 @@ namespace Minesweeper
         // Start coordinants for buttons marked as x,y
         int Start_x, Start_y;
         // Width an Height of the map ??????????????
-        int Height = Difficulty.MapHeight;
-        int Width = Difficulty.MapWidth;
+        //int Height = Difficulty.MapHeight;
+        //int Width = Difficulty.MapWidth;
+        int Height = 10;
+        int Width = 10;
 
         // The size of the button
         int ButtonSize = 30;
@@ -37,12 +39,12 @@ namespace Minesweeper
 
         // Number of mines ?????????
         //int Mines = ((Difficulty.MapHeight * Difficulty.MapWidth) / 100) * NumberOfBombs.BombsPercent;
-        int Mines = 5;
+        int Mines = 10;
         // Development value for flag 
         int flag_value = 9;
         // Number of flags 
         // number of flags must be always mines=flags
-        int Flags = 3;
+        int Flags = 10;
 
         // ClickCordinatiton for x and y values of our mouse when we click smth 
         Point ClickCordination;
@@ -86,6 +88,7 @@ namespace Minesweeper
         void CreateButtons(int x, int y)
         {
             for (int i = 1; i <= x; i++)
+            { 
                 for (int j = 1; j <= y; j++)
                 {
                     buttons[i, j] = new Button();
@@ -93,13 +96,11 @@ namespace Minesweeper
                     // adding the event for discovering buttons and putting flags on them
                     buttons[i, j].Click += new EventHandler(OneClick);
                     buttons[i, j].MouseUp += new MouseEventHandler(RightClick);
-                    //Debug help
-                    buttons[i, j].Text = "0";
-                    ButtonProperties[i, j] = 0;
                     //saved_btn_prop[i, j] = 0;
                     buttons[i, j].TabStop = false;
                     Controls.Add(buttons[i, j]);
                 }
+            }
         }
 
         // Generates the map and its bombs 
@@ -115,25 +116,21 @@ namespace Minesweeper
                 else
                 {
                     ButtonProperties[randomIntegerX, randomIntegerY] = -1;
-                    buttons[randomIntegerX, randomIntegerY].Text = "0";
                     mines--;
                 }
-                buttons[randomIntegerX, randomIntegerY].Text = "-1";
             }
         }
 
         // Calculates the numbers on the map showing how many mines are there
-        private void SetMapNumbers(int width, int height)
+        private void SetMapNumbers(int x, int y)
         {
-            for (int i = 1; i <= width; i++)
+            for (int i = 1; i <= x; i++)
             {
-                for (int j = 1; j <= height; j++)
+                for (int j = 1; j <= y; j++)
                 {
                     if (ButtonProperties[i, j] != -1)
                     {
                         ButtonProperties[i, j] = MinesAround(i, j);
-                        //Debugging
-                        //btn[i, j].Text = btn_prop[i, j].ToString();
                         //saved_btn_prop[i, j] = MinesAround(i, j);
                     }
                 }
@@ -149,21 +146,16 @@ namespace Minesweeper
                 int AroundPointX = x + PointsAroundX[i];
                 int AroundPointY = y + PointsAroundY[i];
 
-                if (isPointOnMap(AroundPointX, AroundPointY) == 1 && ButtonProperties[AroundPointX, AroundPointY] == -1)
-                    Score++;
+                if (!(AroundPointX < 1 || AroundPointX > Height || AroundPointY < 1 || AroundPointY > Width))
+                {
+                    if (ButtonProperties[AroundPointX, AroundPointY] == -1)
+                    { 
+                        Score++;
+                    }
+                }
             }
             return Score;
         }
-
-
-        //Check if the point is on the map
-        private int isPointOnMap(int aroundPointX, int aroundPointY)
-        {
-            if (aroundPointX < 1 || aroundPointX > Height || aroundPointY < 1 || aroundPointY > Width)
-                return 0;
-            return 1;
-        }
-
         
         //Defines action on right click on button
         private void RightClick(object sender, MouseEventArgs e)
@@ -172,23 +164,23 @@ namespace Minesweeper
             {
 
                 ClickCordination = ((Button)sender).Location;
-                int x = (ClickCordination.X - Start_x) / ButtonSize;
-                int y = (ClickCordination.Y - Start_y) / ButtonSize;
-
-                if (ButtonProperties[x, y] != flag_value && Flags > 0)
+                int Height = (ClickCordination.Y - Start_y) / ButtonSize;
+                int Width = (ClickCordination.X - Start_x) / ButtonSize;
+               
+                if (ButtonProperties[Height, Width] != flag_value && Flags > 0)
                 {
-                    buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                    buttons[x, y].Text = "Z";
-                    ButtonProperties[x, y] = flag_value;
+                    buttons[Height, Width].BackgroundImageLayout = ImageLayout.Stretch;
+                    buttons[Height, Width].Text = "Z";
+                    ButtonProperties[Height, Width] = flag_value;
                     Flags--;
                     Check_FlagWin();
                 }
                 else
-                if (ButtonProperties[x, y] == flag_value)
+                if (ButtonProperties[Height, Width] == flag_value)
                 {
                     //ButtonProperties[x, y] = saved_btn_prop[x, y];
-                    buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                    buttons[x, y].BackgroundImage = null;
+                    buttons[Height, Width].BackgroundImageLayout = ImageLayout.Stretch;
+                    buttons[Height, Width].BackgroundImage = null;
                     Flags++;
                 }
 
@@ -200,14 +192,14 @@ namespace Minesweeper
         // Winning conditions 
         void Check_FlagWin()
         {
-            bool win = true;
+           /*bool win = true;
 
             for (int i = 1; i <= Height; i++)
                 for (int j = 1; j <= Width; j++)
                     if (ButtonProperties[i, j] == -1)
-                        win = false;
+                        win = false;*/
 
-            if (win)
+            if (Flags == 0)
             {
                 WinGame();
             }
@@ -275,10 +267,10 @@ namespace Minesweeper
             buttons[x, y].Enabled = false;
             buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
 
-            if (GameOver && ButtonProperties[x, y] == flag_value)
+            //if (GameOver && ButtonProperties[x, y] == flag_value)
                 //ButtonProperties[x, y] = saved_btn_prop[x, y];
 
-            if (GameOver)
+           //if (GameOver)
                 //timer.Stop();
 
             switch (ButtonProperties[x, y])
@@ -295,52 +287,44 @@ namespace Minesweeper
                     break;
 
                 case 2:
-                     //   buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._2;
-                            buttons[x, y].Text = "2";
-
-                            break;
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._2;
+                    buttons[x, y].Text = "2";
+                    break;
 
                 case 3:
-                     //   buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._3;
-                            buttons[x, y].Text = "3";
-
-                            break;
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._3;
+                    buttons[x, y].Text = "3";
+                    break;
 
                 case 4:
-                       // buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._4;
-                            buttons[x, y].Text = "4";
-
-                            break;
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._4;
+                    buttons[x, y].Text = "4";
+                    break;
 
                 case 5:
-//                      buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._5;
-                            buttons[x, y].Text = "5";
-
-                            break;
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._5;
+                    buttons[x, y].Text = "5";
+                    break;
 
                 case 6:
-                       // buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._6;
-                            buttons[x, y].Text = "6";
-
-                            break;
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._6;
+                    buttons[x, y].Text = "6";
+                    break;
 
                 case 7:
-                      //  buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._7;
-                            buttons[x, y].Text = "7";
-
-                            break;
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._7;
+                    buttons[x, y].Text = "7";
+                    break;
 
                 case 8:
-                       // buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._8;
-                            buttons[x, y].Text = "8";
-
-                            break;
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._8;
+                    buttons[x, y].Text = "8";
+                    break;
 
                 case -1:
-                        //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bmb;
-                            buttons[x, y].Text = "9";
-
-                            if (!GameOver)
+                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bmb;
+                    buttons[x, y].Text = "9";
+                    if (!GameOver)
                         GameOver_();
                     break;
             }
@@ -356,13 +340,15 @@ namespace Minesweeper
                     int cx = x + PointsAroundX[i];
                     int cy = y + PointsAroundY[i];
 
-                    if (isPointOnMap(cx, cy) == 1)
+                    if (!(cx < 1 || cx > Height || cy < 1 || cy > Width))
+                    {
                         if (buttons[cx, cy].Enabled == true && ButtonProperties[cx, cy] != -1 && !GameOver)
                         {
                             //gameProgress.Value++;
                             //score.Text = "Score: " + gameProgress.Value.ToString();
                             set_ButtonImage(cx, cy);
                         }
+                    }
                 }
             }
         }
@@ -371,7 +357,7 @@ namespace Minesweeper
         {
             GameOver = true;
             Discover_Map();
-            MessageBox.Show("Game Over !");
+            MessageBox.Show("Game Over!");
         }
 
         private void TableMargins()
@@ -385,8 +371,6 @@ namespace Minesweeper
         {
             Application.Exit();
         }
-
-        
 
         public GameMain()
         {
