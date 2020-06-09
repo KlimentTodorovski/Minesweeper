@@ -2,7 +2,6 @@ D:\Летен Семестар 2020\Визуелно програмирање\Mi
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\bin\Debug\Minesweeper.exe
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\bin\Debug\Minesweeper.pdb
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csprojAssemblyReference.cache
-D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Minesweeper.resources
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Properties.Resources.resources
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.GenerateResource.cache
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.CoreCompileInputs.cache
@@ -22,3 +21,8 @@ D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Diffic
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.HowToPlayTheGame.resources
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.NumberOfBombs.resources
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.GameMain.resources
+D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Difficulty.resources
+D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.HowToPlayTheGame.resources
+D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.GameMain.resources
+D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.NumberOfBombs.resources
+D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\obj\Debug\Minesweeper.StartingMenu.resources

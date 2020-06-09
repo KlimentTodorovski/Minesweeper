@@ -34,9 +34,10 @@ namespace Minesweeper
         // Distance between every button in all directions 
         int DistanceBetween = 30;
 
-        
+
         // Number of mines ?????????
-        int Mines = ((Difficulty.MapHeight* Difficulty.MapWidth)/100)*NumberOfBombs.BombsPercent;
+        //int Mines = ((Difficulty.MapHeight * Difficulty.MapWidth) / 100) * NumberOfBombs.BombsPercent;
+        int Mines = 5;
         // Development value for flag 
         int flag_value = 9;
         // Number of flags 
@@ -75,11 +76,11 @@ namespace Minesweeper
         private void StartGame()
         {
             // Creating the map od buttons 
-            CreateButtons(Width, Height);
+            CreateButtons(Height, Width);
             // Generating the bombs on map 
-            GenerateMap(Width, Height, Mines);
+            GenerateMap(Height, Width, Mines);
             // Using background map as development help 
-            SetMapNumbers(Width, Height);
+            SetMapNumbers(Height, Width);
         }
 
         void CreateButtons(int x, int y)
@@ -114,6 +115,7 @@ namespace Minesweeper
                 else
                 {
                     ButtonProperties[randomIntegerX, randomIntegerY] = -1;
+                    buttons[randomIntegerX, randomIntegerY].Text = "0";
                     mines--;
                 }
                 buttons[randomIntegerX, randomIntegerY].Text = "-1";
@@ -157,7 +159,7 @@ namespace Minesweeper
         //Check if the point is on the map
         private int isPointOnMap(int aroundPointX, int aroundPointY)
         {
-            if (aroundPointX < 1 || aroundPointX > Width || aroundPointY < 1 || aroundPointY > Height)
+            if (aroundPointX < 1 || aroundPointX > Height || aroundPointY < 1 || aroundPointY > Width)
                 return 0;
             return 1;
         }
@@ -200,8 +202,8 @@ namespace Minesweeper
         {
             bool win = true;
 
-            for (int i = 1; i <= Width; i++)
-                for (int j = 1; j <= Height; j++)
+            for (int i = 1; i <= Height; i++)
+                for (int j = 1; j <= Width; j++)
                     if (ButtonProperties[i, j] == -1)
                         win = false;
 
@@ -214,10 +216,9 @@ namespace Minesweeper
         private void OneClick(object sender, EventArgs e)
         {
             Point ClickCordination = ((Button)sender).Location;
-            int x = (ClickCordination.X - Start_x) / ButtonSize;
-            int y = (ClickCordination.Y - Start_y) / ButtonSize;
-
-            if (ButtonProperties[x, y] != flag_value)
+            int Height = (ClickCordination.Y - Start_y) / ButtonSize;
+            int Width = (ClickCordination.X - Start_x) / ButtonSize;
+            if (ButtonProperties[Width, Height] != flag_value)
             {
 
                 ((Button)sender).Enabled = false;
@@ -225,22 +226,22 @@ namespace Minesweeper
 
                 ((Button)sender).BackgroundImageLayout = ImageLayout.Stretch;
 
-                if (ButtonProperties[x, y] != -1 && !GameOver)
+                if (ButtonProperties[Height, Width] != -1 && !GameOver)
                 {
                     //gameProgress.Value++;
                     //score.Text = "Score: " + gameProgress.Value.ToString();
                     Check_ClickWin();
                 }
 
-                set_ButtonImage(x, y);
+                set_ButtonImage(Height, Width);
             }
         }
 
         void Check_ClickWin()
         {
             bool win = true;
-            for (int i = 1; i <= Width; i++)
-                for (int j = 1; j <= Height; j++)
+            for (int i = 1; i <= Height; i++)
+                for (int j = 1; j <= Width; j++)
                     if (buttons[i, j].Enabled == true && ButtonProperties[i, j] != -1)
                         win = false;
             //ButtonProperties ставено место saved
@@ -261,8 +262,8 @@ namespace Minesweeper
 
         void Discover_Map()
         {
-            for (int i = 1; i <= Width; i++)
-                for (int j = 1; j <= Height; j++)
+            for (int i = 1; i <= Height; i++)
+                for (int j = 1; j <= Width; j++)
                     if (buttons[i, j].Enabled == true)
                     {
                         set_ButtonImage(i, j);
