@@ -12,8 +12,8 @@ namespace Minesweeper
 {
     public partial class Difficulty : Form
     {
-        int MapWidth;
-        int MapHeight;
+        public static int MapWidth;
+        public static int MapHeight;
 
         public Difficulty()
         {
@@ -50,16 +50,6 @@ namespace Minesweeper
             NumberOfBombs nb = new NumberOfBombs();
             this.Hide();
             nb.ShowDialog();
-        }
-
-        private int getWidth()
-        {
-            return MapWidth;
-        }
-
-        private int getHeight()
-        {
-            return MapHeight;
         }
 
     }

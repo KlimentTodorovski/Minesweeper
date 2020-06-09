@@ -12,7 +12,7 @@ namespace Minesweeper
 {
     public partial class NumberOfBombs : Form
     {
-        int BombsPercent;
+        public static int BombsPercent;
 
         public NumberOfBombs()
         {

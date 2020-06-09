@@ -26,8 +26,8 @@ namespace Minesweeper
         // Start coordinants for buttons marked as x,y
         int Start_x, Start_y;
         // Width an Height of the map ??????????????
-        int Height = 4;
-        int Width = 4;
+        int Height = Difficulty.MapHeight;
+        int Width = Difficulty.MapWidth;
 
         // The size of the button
         int ButtonSize = 30;
@@ -36,7 +36,7 @@ namespace Minesweeper
 
         
         // Number of mines ?????????
-        int Mines = 3;
+        int Mines = ((Difficulty.MapHeight* Difficulty.MapWidth)/100)*NumberOfBombs.BombsPercent;
         // Development value for flag 
         int flag_value = 9;
         // Number of flags 
