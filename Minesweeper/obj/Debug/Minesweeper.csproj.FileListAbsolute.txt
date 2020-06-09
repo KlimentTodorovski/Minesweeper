@@ -17,5 +17,8 @@ D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.CoreCompileInputs.cache
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.exe
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.pdb
-D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.GamaMain.resources
 D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.StartingMenu.resources
+D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Difficulty.resources
+D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.HowToPlayTheGame.resources
+D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.NumberOfBombs.resources
+D:\Documents\Desktop\proekt\Minesweeper\Minesweeper\obj\Debug\Minesweeper.GameMain.resources

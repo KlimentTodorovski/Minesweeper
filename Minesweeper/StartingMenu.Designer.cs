@@ -32,7 +32,7 @@
             this.StartButton = new System.Windows.Forms.Button();
             this.HowToPlayIt = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
-            this.MoreAboutTheGame = new System.Windows.Forms.Button();
+            this.LinkWiki = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // StartButton
@@ -72,16 +72,18 @@
             this.Exit.UseVisualStyleBackColor = false;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // MoreAboutTheGame
+            // LinkWiki
             // 
-            this.MoreAboutTheGame.BackColor = System.Drawing.Color.DodgerBlue;
-            this.MoreAboutTheGame.Location = new System.Drawing.Point(32, 295);
-            this.MoreAboutTheGame.Name = "MoreAboutTheGame";
-            this.MoreAboutTheGame.Size = new System.Drawing.Size(143, 23);
-            this.MoreAboutTheGame.TabIndex = 3;
-            this.MoreAboutTheGame.Text = "More About The Game";
-            this.MoreAboutTheGame.UseVisualStyleBackColor = false;
-            this.MoreAboutTheGame.Click += new System.EventHandler(this.MoreAboutTheGame_Click);
+            this.LinkWiki.AutoSize = true;
+            this.LinkWiki.BackColor = System.Drawing.Color.DodgerBlue;
+            this.LinkWiki.LinkColor = System.Drawing.Color.Black;
+            this.LinkWiki.Location = new System.Drawing.Point(33, 303);
+            this.LinkWiki.Name = "LinkWiki";
+            this.LinkWiki.Size = new System.Drawing.Size(111, 13);
+            this.LinkWiki.TabIndex = 4;
+            this.LinkWiki.TabStop = true;
+            this.LinkWiki.Text = "More about the game ";
+            this.LinkWiki.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkWiki_LinkClicked);
             // 
             // StartingMenu
             // 
@@ -89,7 +91,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Minesweeper.Properties.Resources.ms;
             this.ClientSize = new System.Drawing.Size(600, 366);
-            this.Controls.Add(this.MoreAboutTheGame);
+            this.Controls.Add(this.LinkWiki);
             this.Controls.Add(this.Exit);
             this.Controls.Add(this.HowToPlayIt);
             this.Controls.Add(this.StartButton);
@@ -98,6 +100,7 @@
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "Minesweeper";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -106,6 +109,6 @@
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button HowToPlayIt;
         private System.Windows.Forms.Button Exit;
-        private System.Windows.Forms.Button MoreAboutTheGame;
+        private System.Windows.Forms.LinkLabel LinkWiki;
     }
 }

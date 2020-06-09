@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Minesweeper
 {
     
-    public partial class GamaMain : Form
+    public partial class GameMain : Form
     {
         // Matrix of buttons for the gameplay ????????????
         Button[,] buttons = new Button[41, 41];
@@ -19,7 +19,6 @@ namespace Minesweeper
         int[,] ButtonProperties = new int[41, 41];
 
         // FirstClick can't be on bomb 
-        //bla bla bla
         bool FirstPlay = true;
         // GameOver bool for finishing the game with fail 
         bool GameOver = false;
@@ -27,7 +26,8 @@ namespace Minesweeper
         // Start coordinants for buttons marked as x,y
         int Start_x, Start_y;
         // Width an Height of the map ??????????????
-        int Height = 4, Width = 4;
+        int Height = 4;
+        int Width = 4;
 
         // The size of the button
         int ButtonSize = 30;
@@ -59,6 +59,19 @@ namespace Minesweeper
         // and set the bombs and number of it in the background
         // in another matrix which we use as help to create game 
 
+        //Sarting all needed method and functions for the fame on the load of the form
+        private void GameMain_Load(object sender, EventArgs e)
+        {
+            TableMargins();
+
+            if (FirstPlay)
+            {
+                StartGame();
+                FirstPlay = false;
+            }
+        }
+
+
         private void StartGame()
         {
             // Creating the map od buttons 
@@ -88,21 +101,26 @@ namespace Minesweeper
                 }
         }
 
-
-
-        private void Start_Click(object sender, EventArgs e)
+        // Generates the map and its bombs 
+        void GenerateMap(int x, int y, int mines)
         {
-            TableMargins();
-
-            if (FirstPlay)
+            Random random = new Random();
+            while (mines > 0)
             {
-                StartGame();
-                FirstPlay = false;
+                int randomIntegerX = (int)(random.NextDouble() * x) + 1;
+                int randomIntegerY = (int)(random.NextDouble() * y) + 1;
+                if (ButtonProperties[randomIntegerX, randomIntegerY] == -1)
+                    continue;
+                else
+                {
+                    ButtonProperties[randomIntegerX, randomIntegerY] = -1;
+                    mines--;
+                }
+                buttons[randomIntegerX, randomIntegerY].Text = "-1";
             }
         }
 
-        
-
+        // Calculates the numbers on the map showing how many mines are there
         private void SetMapNumbers(int width, int height)
         {
             for (int i = 1; i <= width; i++)
@@ -120,6 +138,7 @@ namespace Minesweeper
             }
         }
 
+        // Counts the mines around the button and writes them in array 
         private int MinesAround(int x, int y)
         {
             int Score = 0;
@@ -134,6 +153,8 @@ namespace Minesweeper
             return Score;
         }
 
+
+        //Check if the point is on the map
         private int isPointOnMap(int aroundPointX, int aroundPointY)
         {
             if (aroundPointX < 1 || aroundPointX > Width || aroundPointY < 1 || aroundPointY > Height)
@@ -141,26 +162,8 @@ namespace Minesweeper
             return 1;
         }
 
-        void GenerateMap(int x, int y, int mines)
-        {
-            Random random = new Random();
-            while(mines > 0)
-            {
-                int randomIntegerX = (int)(random.NextDouble() * x) + 1;
-                int randomIntegerY = (int)(random.NextDouble() * y) + 1;
-                if (ButtonProperties[randomIntegerX, randomIntegerY] == -1)
-                    continue;
-                else
-                {
-                    ButtonProperties[randomIntegerX, randomIntegerY] = -1;
-                    mines--;
-                }
-                buttons[randomIntegerX, randomIntegerY].Text = "-1";
-            }
-        }
-
         
-
+        //Defines action on right click on button
         private void RightClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -191,6 +194,8 @@ namespace Minesweeper
             }
         }
 
+
+        // Winning conditions 
         void Check_FlagWin()
         {
             bool win = true;
@@ -380,7 +385,9 @@ namespace Minesweeper
             Application.Exit();
         }
 
-        public GamaMain()
+        
+
+        public GameMain()
         {
             InitializeComponent();
         }

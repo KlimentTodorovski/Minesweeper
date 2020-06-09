@@ -43,6 +43,7 @@
             this.Easy.TabIndex = 0;
             this.Easy.Text = "Easy ( 8 x 8 )";
             this.Easy.UseVisualStyleBackColor = false;
+            this.Easy.Click += new System.EventHandler(this.Easy_Click);
             // 
             // Intermediate
             // 
@@ -53,6 +54,7 @@
             this.Intermediate.TabIndex = 1;
             this.Intermediate.Text = "Intermediate ( 10 x 10 )";
             this.Intermediate.UseVisualStyleBackColor = false;
+            this.Intermediate.Click += new System.EventHandler(this.Intermediate_Click);
             // 
             // Hard
             // 
@@ -63,6 +65,7 @@
             this.Hard.TabIndex = 2;
             this.Hard.Text = "Hard ( 13 x 13 )";
             this.Hard.UseVisualStyleBackColor = false;
+            this.Hard.Click += new System.EventHandler(this.Hard_Click);
             // 
             // Difficulty
             // 

@@ -20,7 +20,9 @@ namespace Minesweeper
         //This will get you back to the starting page
         private void button1_Click(object sender, EventArgs e)
         {
-
+            StartingMenu sm = new StartingMenu();
+            this.Hide();
+            sm.ShowDialog();
         }
     }
 }
