@@ -17,7 +17,7 @@ namespace Minesweeper
             InitializeComponent();
         }
 
-        //Start button for the game on starting page 
+        //Start button for the game on starting  page 
         private void StartButton_Click(object sender, EventArgs e)
         {
             Difficulty DifficultyFrom = new Difficulty();
