@@ -74,11 +74,23 @@ namespace Minesweeper
             }
         }
 
+        void changeBackgroundImages(int x, int y)
+        {
+            for (int i = 1; i <= x; i++)
+            {
+                for (int j = 1; j <= y; j++)
+                {
+                    buttons[i, j].BackgroundImage = Minesweeper.Properties.Resources.tile;
+
+                }
+            }
+        }
 
         private void StartGame()
         {
             // Creating the map od buttons 
             CreateButtons(Height, Width);
+            changeBackgroundImages(Height, Width);
             // Generating the bombs on map 
             GenerateMap(Height, Width, Mines);
             // Using background map as development help 
@@ -322,8 +334,7 @@ namespace Minesweeper
                     break;
 
                 case -1:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bmb;
-                    buttons[x, y].Text = "9";
+                    buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bombImage;
                     if (!GameOver)
                         GameOver_();
                     break;
