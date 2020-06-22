@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\bombImage.jpg" />
+    <None Include="Properties\flag.jpg" />
     <Content Include="Properties\tile.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

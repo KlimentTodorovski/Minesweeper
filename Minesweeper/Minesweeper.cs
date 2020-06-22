@@ -181,14 +181,12 @@ namespace Minesweeper
                
                 if (ButtonProperties[Height, Width] != flag_value && Flags > 0)
                 {
-                    buttons[Height, Width].BackgroundImageLayout = ImageLayout.Stretch;
-                    buttons[Height, Width].Text = "Z";
+                    //buttons[Height, Width].BackgroundImageLayout = ImageLayout.Stretch;
                     ButtonProperties[Height, Width] = flag_value;
                     Flags--;
                     Check_FlagWin();
                 }
-                else
-                if (ButtonProperties[Height, Width] == flag_value)
+                else if (ButtonProperties[Height, Width] == flag_value)
                 {
                     //ButtonProperties[x, y] = saved_btn_prop[x, y];
                     buttons[Height, Width].BackgroundImageLayout = ImageLayout.Stretch;
@@ -280,66 +278,63 @@ namespace Minesweeper
             buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
 
             //if (GameOver && ButtonProperties[x, y] == flag_value)
-                //ButtonProperties[x, y] = saved_btn_prop[x, y];
+            //ButtonProperties[x, y] = saved_btn_prop[x, y];
 
-           //if (GameOver)
-                //timer.Stop();
+            //if (GameOver)
+            //timer.Stop();
 
-            switch (ButtonProperties[x, y])
+            if (ButtonProperties[x, y] == 0)
             {
-                case 0:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.blank;
-                    buttons[x, y].Text = "0";
-                    EmptySpace(x, y);
-                    break;
-
-                case 1:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                    buttons[x, y].Text = "1";
-                    break;
-
-                case 2:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._2;
-                    buttons[x, y].Text = "2";
-                    break;
-
-                case 3:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._3;
-                    buttons[x, y].Text = "3";
-                    break;
-
-                case 4:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._4;
-                    buttons[x, y].Text = "4";
-                    break;
-
-                case 5:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._5;
-                    buttons[x, y].Text = "5";
-                    break;
-
-                case 6:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._6;
-                    buttons[x, y].Text = "6";
-                    break;
-
-                case 7:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._7;
-                    buttons[x, y].Text = "7";
-                    break;
-
-                case 8:
-                    //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._8;
-                    buttons[x, y].Text = "8";
-                    break;
-
-                case -1:
-                    buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bombImage;
-                    if (!GameOver)
-                        GameOver_();
-                    break;
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.blank;
+                buttons[x, y].Text = "0";
+                EmptySpace(x, y);
             }
-
+            else if (ButtonProperties[x, y] == 1)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "1";
+            }
+            else if (ButtonProperties[x, y] == 2)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "2";
+            }
+            else if (ButtonProperties[x, y] == 3)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "3";
+            }
+            else if (ButtonProperties[x, y] == 4)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "4";
+            }
+            else if (ButtonProperties[x, y] == 5)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "5";
+            }
+            else if (ButtonProperties[x, y] == 6)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "6";
+            }
+            else if (ButtonProperties[x, y] == 7)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "7";
+            }
+            else if (ButtonProperties[x, y] == 8)
+            {
+                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
+                buttons[x, y].Text = "8";
+            }
+            else if(ButtonProperties[x, y] == -1)
+            {
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bombImage;
+                if (!GameOver)
+                    GameOver_();
+            }
         }
 
         void EmptySpace(int x, int y)
