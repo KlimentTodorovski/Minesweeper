@@ -50,6 +50,10 @@ namespace Minesweeper
         // ClickCordinatiton for x and y values of our mouse when we click smth 
         Point ClickCordination;
 
+        //Time
+        int Seconds = 0;
+        int Minutes = 0;
+
 
         // Simple helpful array for checking all the neighbours of button
         //using x
@@ -93,6 +97,8 @@ namespace Minesweeper
             GenerateMap(Height, Width, Mines);
             // Using background map as development help 
             SetMapNumbers(Height, Width);
+
+            timer1.Start();
         }
 
         void CreateButtons(int x, int y)
@@ -201,7 +207,6 @@ namespace Minesweeper
                     ButtonProperties[Height, Width] = SavedButtonProperties[Height, Width];
                     Flags++;
                 }
-                label1.Text = ButtonProperties[Height, Width].ToString();
                 //remainingFlags.Text = "Flags: " + flags;
             }
         }
@@ -321,8 +326,8 @@ namespace Minesweeper
             if (GameOver && ButtonProperties[x, y] == flag_value)
                 ButtonProperties[x, y] = SavedButtonProperties[x, y];
 
-            //if (GameOver)
-            //timer.Stop();
+            if (GameOver)
+                timer1.Stop();
 
             if (ButtonProperties[x, y] == 0)
             {
@@ -432,6 +437,17 @@ namespace Minesweeper
         public GameMain()
         {
             InitializeComponent();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            Seconds++;
+
+            if (Seconds == 60)
+            {
+                Minutes++;
+                Seconds = 0;
+            }
         }
 
         private void Game_Load(object sender, EventArgs e)
