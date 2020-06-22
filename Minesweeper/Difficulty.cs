@@ -36,11 +36,11 @@ namespace Minesweeper
             GoToNextForm();
         }
 
-        //Creates map 13x13
+        //Creates map 12x12
         private void Hard_Click(object sender, EventArgs e)
         {
-            MapHeight = 13;
-            MapWidth = 13;
+            MapHeight = 12;
+            MapWidth = 12;
             GoToNextForm();
         }
 

@@ -37,9 +37,9 @@
             // Easy
             // 
             this.Easy.BackColor = System.Drawing.Color.DodgerBlue;
-            this.Easy.Location = new System.Drawing.Point(236, 95);
+            this.Easy.Location = new System.Drawing.Point(253, 103);
             this.Easy.Name = "Easy";
-            this.Easy.Size = new System.Drawing.Size(138, 23);
+            this.Easy.Size = new System.Drawing.Size(201, 29);
             this.Easy.TabIndex = 0;
             this.Easy.Text = "Easy ( 8 x 8 )";
             this.Easy.UseVisualStyleBackColor = false;
@@ -48,9 +48,9 @@
             // Intermediate
             // 
             this.Intermediate.BackColor = System.Drawing.Color.DodgerBlue;
-            this.Intermediate.Location = new System.Drawing.Point(236, 153);
+            this.Intermediate.Location = new System.Drawing.Point(253, 180);
             this.Intermediate.Name = "Intermediate";
-            this.Intermediate.Size = new System.Drawing.Size(138, 23);
+            this.Intermediate.Size = new System.Drawing.Size(201, 29);
             this.Intermediate.TabIndex = 1;
             this.Intermediate.Text = "Intermediate ( 10 x 10 )";
             this.Intermediate.UseVisualStyleBackColor = false;
@@ -59,11 +59,11 @@
             // Hard
             // 
             this.Hard.BackColor = System.Drawing.Color.DodgerBlue;
-            this.Hard.Location = new System.Drawing.Point(236, 211);
+            this.Hard.Location = new System.Drawing.Point(253, 259);
             this.Hard.Name = "Hard";
-            this.Hard.Size = new System.Drawing.Size(138, 23);
+            this.Hard.Size = new System.Drawing.Size(201, 29);
             this.Hard.TabIndex = 2;
-            this.Hard.Text = "Hard ( 13 x 13 )";
+            this.Hard.Text = "Hard ( 12 x 12 )";
             this.Hard.UseVisualStyleBackColor = false;
             this.Hard.Click += new System.EventHandler(this.Hard_Click);
             // 
@@ -72,7 +72,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Minesweeper.Properties.Resources.ms;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(684, 416);
             this.Controls.Add(this.Hard);
             this.Controls.Add(this.Intermediate);
             this.Controls.Add(this.Easy);
