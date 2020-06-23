@@ -96,6 +96,8 @@ namespace Minesweeper
 
         private void StartGame()
         {
+            timer1.Start();
+
             // Creating the map od buttons
             CreateButtons(Height, Width);
             // Generating the bombs on map 
@@ -269,6 +271,10 @@ namespace Minesweeper
             buttons[x, y].Enabled = false;
             buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
 
+            if (GameOver)
+            {
+                timer1.Stop();
+            }
 
             if (ButtonProperties[x, y] == 0)
             {
@@ -392,8 +398,46 @@ namespace Minesweeper
             smileMan.BackgroundImageLayout = ImageLayout.Stretch;
             smileMan.BackgroundImage = Minesweeper.Properties.Resources.gameWon;
             //gameProgress.Value = 0;
+            CheckPlayerInBestFive();
             MessageBox.Show("Win !!!");
             Application.Exit();
+        }
+
+        private void CheckPlayerInBestFive()
+        {
+            int PlayerTimeInSeconds = Minutes * 60 + Seconds;
+            if(PlayerTimeInSeconds < StartingMenu.LastPlayerTimeInSeconds)
+            {
+                int [] TimesOfPlayers = GetTimesOfPlayers();
+                for (int i = 0; i < 5; i++)
+                {
+                    if(PlayerTimeInSeconds < TimesOfPlayers[i])
+                    {
+                        string player = "";
+                        player += Player.NameOfPlayer + " ";
+                        player += Minutes + ":" + Seconds + " ";
+                        player += Difficulty.MapHeight + "x" + Difficulty.MapWidth + " ";
+                        player += NumberOfBombs.BombsInPercent;
+                        StartingMenu.bestFive[i] = player;
+                        StartingMenu.WriteInFile();
+                        label2.Text = player;
+                    }
+                }
+            }
+        }
+
+        private int [] GetTimesOfPlayers()
+        {
+            int [] TimesOfPlayers = new int [5];
+
+            for (int i = 0; i < 5; i++)
+            {
+                string [] PlayerInfo = StartingMenu.bestFive[i].Split(' ');
+                string [] TimeOfPlayer = PlayerInfo[1].Split(':');
+                TimesOfPlayers[i] = Int32.Parse(TimeOfPlayer[0]) * 60 + Int32.Parse(TimeOfPlayer[1]);
+            }
+
+            return TimesOfPlayers;
         }
 
         // After game over
@@ -427,7 +471,25 @@ namespace Minesweeper
 
         }
 
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            Seconds++;
 
+            if(Seconds == 60)
+            {
+                Minutes++;
+                Seconds = 0;
+            }
+
+            if(Seconds < 10)
+            {
+                time.Text = Minutes + ":0" + Seconds;
+            }
+            else
+            {
+                time.Text = Minutes + ":" + Seconds;
+            }
+        }
 
         void Discover_Map_Lose()
         {

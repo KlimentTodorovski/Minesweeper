@@ -40,6 +40,4 @@ D:\Летен Семестар 2020\Визуелно програмирање\Mi
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.CoreCompileInputs.cache
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\Minesweeper\obj\Debug\Minesweeper.exe
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\Minesweeper\obj\Debug\Minesweeper.pdb
-D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\Minesweeper\bin\Debug\Database1.mdf
-D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\Minesweeper\bin\Debug\Database1_log.ldf
 D:\Летен Семестар 2020\Визуелно програмирање\Minesweeper\Minesweeper\Minesweeper\obj\Debug\Minesweeper.Player.resources

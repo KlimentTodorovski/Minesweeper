@@ -13,6 +13,7 @@ namespace Minesweeper
     public partial class NumberOfBombs : Form
     {
         public static int Bombs;
+        public static string BombsInPercent;
 
         public NumberOfBombs()
         {
@@ -22,6 +23,7 @@ namespace Minesweeper
         // 10% percent bombs
         private void button1_Click(object sender, EventArgs e)
         {
+            BombsInPercent = "10%";
             if (Difficulty.MapWidth == 8)
             {
                 Bombs = 7;
@@ -39,6 +41,7 @@ namespace Minesweeper
         // 20% percent bombs
         private void button2_Click(object sender, EventArgs e)
         {
+            BombsInPercent = "20%";
             if (Difficulty.MapWidth == 8)
             {
                 Bombs = 14;
@@ -56,6 +59,7 @@ namespace Minesweeper
         // 30% percent bombs
         private void button3_Click(object sender, EventArgs e)
         {
+            BombsInPercent = "30%";
             if (Difficulty.MapWidth == 8)
             {
                 Bombs = 21;

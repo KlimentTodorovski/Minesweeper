@@ -61,6 +61,17 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to test
+        ///text
+        ///tenk.
+        /// </summary>
+        internal static string best_5 {
+            get {
+                return ResourceManager.GetString("best_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap blank {
