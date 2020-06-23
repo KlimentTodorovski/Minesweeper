@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -68,52 +69,63 @@ namespace Minesweeper
         // in another matrix which we use as help to create game 
 
         //Sarting all needed method and functions for the fame on the load of the form
+        public GameMain()
+        {
+            InitializeComponent();
+        }
+
         private void GameMain_Load(object sender, EventArgs e)
         {
+            //When page loads start the process for creating the grid for gameplay 
             Play();
         }
 
         private void Play()
         {
+            //Defines table margins 
             TableMargins();
-
-            if (FirstPlay)
-            {
-                StartGame();
-                FirstPlay = false;
-            }
-            else if(!FirstPlay)
-            {
-                ResetMap(Height, Width);
-                StartGame();
-            }
+            //Starting the drawing of the map 
+            StartGame();
         }
+
+        private void TableMargins()
+        {
+            Start_x = (this.Size.Width - (Width + 2) * DistanceBetween) / 2;
+            Start_y = (this.Size.Height - (Height + 2) * DistanceBetween) / 2;
+        }
+
         private void StartGame()
         {
             // Creating the map od buttons
-            if(FirstPlay)
-                CreateButtons(Height, Width);
+            CreateButtons(Height, Width);
             // Generating the bombs on map 
             GenerateMap(Height, Width, Mines);
             // Using background map as development help 
             SetMapNumbers(Height, Width);
 
-            timer1.Start();
+            numFlags.Text = "Number of flags: " + Flags.ToString();
+            smileMan.BackgroundImageLayout = ImageLayout.Stretch;
+            smileMan.BackgroundImage = Minesweeper.Properties.Resources.normalSmile;
+
         }
 
+        // Creating the buttons for game 
         void CreateButtons(int x, int y)
         {
             for (int i = 1; i <= x; i++)
             {
                 for (int j = 1; j <= y; j++)
                 {
+                    // Setting the buttons and its locations on map 
                     buttons[i, j] = new Button();
                     buttons[i, j].SetBounds(j * ButtonSize + Start_x, i * ButtonSize + Start_y, DistanceBetween, DistanceBetween);
                     buttons[i, j].BackgroundImageLayout = ImageLayout.Stretch;
-                    buttons[i, j].BackgroundImage = Minesweeper.Properties.Resources.tile;
+                    buttons[i, j].BackgroundImage = Minesweeper.Properties.Resources.blank;
+
                     // adding the event for discovering buttons and putting flags on them
                     buttons[i, j].Click += new EventHandler(OneClick);
                     buttons[i, j].MouseUp += new MouseEventHandler(RightClick);
+
                     // We need the calculation for saved matrix 
                     // for now we put all values equal to 0
                     SavedButtonProperties[i, j] = 0;
@@ -124,6 +136,7 @@ namespace Minesweeper
         }
 
         // Generates the map and its bombs 
+        // on random locations 
         void GenerateMap(int x, int y, int mines)
         {
             Random random = new Random();
@@ -157,7 +170,7 @@ namespace Minesweeper
                     {
                         SavedButtonProperties[i, j] = -1;
                     }
-                    buttons[i, j].Text = ButtonProperties[i, j].ToString();
+                    //buttons[i, j].Text = ButtonProperties[i, j].ToString();
                 }
             }
         }
@@ -171,7 +184,8 @@ namespace Minesweeper
                 int AroundPointX = x + PointsAroundX[i];
                 int AroundPointY = y + PointsAroundY[i];
 
-                if (!(AroundPointX < 1 || AroundPointX > Height || AroundPointY < 1 || AroundPointY > Width))
+                if (!(AroundPointX < 1 || AroundPointX > Height ||
+                      AroundPointY < 1 || AroundPointY > Width))
                 {
                     if (ButtonProperties[AroundPointX, AroundPointY] == -1)
                     {
@@ -180,6 +194,43 @@ namespace Minesweeper
                 }
             }
             return Score;
+        }
+
+        // Actions for left click on button 
+        private void OneClick(object sender, EventArgs e)
+        {
+            smileMan.BackgroundImageLayout = ImageLayout.Stretch;
+            smileMan.BackgroundImage = Minesweeper.Properties.Resources.shockedSmile;
+            var t = Task.Delay(100);
+            t.Wait();
+            Point ClickCordination = ((Button)sender).Location;
+            int Height = (ClickCordination.Y - Start_y) / ButtonSize;
+            int Width = (ClickCordination.X - Start_x) / ButtonSize;
+            if (FirstPlay && ButtonProperties[Height, Width] == -1)
+            {
+                GenerateMap(Difficulty.MapHeight, Difficulty.MapWidth, 1);
+                ButtonProperties[Height, Width] = 0;
+                SavedButtonProperties[Height, Width] = 0;
+                SetMapNumbers(Difficulty.MapHeight, Difficulty.MapWidth);
+            }
+            FirstPlay = false;
+            if (ButtonProperties[Height, Width] != flag_value)
+            {
+                ((Button)sender).Enabled = false;
+
+                ((Button)sender).BackgroundImageLayout = ImageLayout.Stretch;
+
+                if (ButtonProperties[Height, Width] != -1 && !GameOver)
+                {
+                    CheckWin();
+                }
+
+                set_ButtonImage(Height, Width);
+            }
+            else
+            {
+                buttons[Height, Width].Enabled = true;
+            }
         }
 
         //Defines action on right click on button
@@ -195,127 +246,22 @@ namespace Minesweeper
                 if (ButtonProperties[Height, Width] != flag_value && Flags > 0)
                 {
                     buttons[Height, Width].BackgroundImageLayout = ImageLayout.Stretch;
-                    buttons[Height, Width].BackgroundImage = Minesweeper.Properties.Resources.flag;
+                    buttons[Height, Width].BackgroundImage = Minesweeper.Properties.Resources.flagImage;
                     ButtonProperties[Height, Width] = flag_value;
+                    numFlags.Text = SavedButtonProperties[Height, Width].ToString();
                     Flags--;
-                    Check_FlagWin();
+                    CheckWin();
                 }
                 else if (ButtonProperties[Height, Width] == flag_value)
                 {
                     buttons[Height, Width].BackgroundImageLayout = ImageLayout.Stretch;
-                    buttons[Height, Width].BackgroundImage = Minesweeper.Properties.Resources.tile;
+                    buttons[Height, Width].BackgroundImage = Minesweeper.Properties.Resources.blank;
                     ButtonProperties[Height, Width] = SavedButtonProperties[Height, Width];
                     Flags++;
                 }
-                //remainingFlags.Text = "Flags: " + flags;
+                numFlags.Text = "Number of flags: " + Flags.ToString();
             }
-        }
-
-
-        // Winning conditions 
-        void Check_FlagWin()
-        {
-            int Count_9 = 0;
-            int Count_1 = 0;
-            int Count_other = 0;
-            bool win = true;
-
-            for (int i = 1; i <= Height; i++)
-            { 
-                for (int j = 1; j <= Width; j++)
-                {
-                    if(ButtonProperties[i, j] == -1)
-                    {
-                        Count_1++;
-                    }
-                    else if (ButtonProperties[i, j] == 9)
-                    {
-                        Count_9++;
-                    }
-                    else if(buttons[i, j].Enabled == true)
-                    {
-                        Count_other++;
-                    }
-                }
-            }
-
-            if (Count_1 + Count_9 == NumberOfBombs.Bombs && Count_other == 0)
-            {
-                WinGame();
-            }
-        }
-
-        private void OneClick(object sender, EventArgs e)
-        {
-            Point ClickCordination = ((Button)sender).Location;
-            int Height = (ClickCordination.Y - Start_y) / ButtonSize;
-            int Width = (ClickCordination.X - Start_x) / ButtonSize;
-            if(FirstPlay && ButtonProperties[Height, Width] == -1)
-            {
-                StartGame();
-            }
-            if (ButtonProperties[Width, Height] != flag_value)
-            {
-
-                ((Button)sender).Enabled = false;
-                //((Button)sender).Text = "";
-
-                ((Button)sender).BackgroundImageLayout = ImageLayout.Stretch;
-
-                if (ButtonProperties[Height, Width] != -1 && !GameOver)
-                {
-                    //gameProgress.Value++;
-                    //score.Text = "Score: " + gameProgress.Value.ToString();
-                    Check_ClickWin();
-                }
-
-                set_ButtonImage(Height, Width);
-            }
-        }
-
-        private void ResetMap(int Height, int Width)
-        {
-            for (int i = 1; i <= Height; i++)
-            {
-                for (int j = 1; j <= Width; j++)
-                {
-                    buttons[i, j].Enabled = true;
-                    ButtonProperties[i, j] = 0;
-                    SavedButtonProperties[i, j] = 0;
-                }
-            }
-        }
-
-        void Check_ClickWin()
-        {
-            bool win = true;
-            for (int i = 1; i <= Height; i++)
-                for (int j = 1; j <= Width; j++)
-                    if (buttons[i, j].Enabled == true && ButtonProperties[i, j] != -1)
-                        win = false;
-
-            if (win)
-            {
-                WinGame();
-            }
-        }
-
-        void WinGame()
-        {
-            GameOver = true;
-            Discover_Map();
-            //gameProgress.Value = 0;
-            MessageBox.Show("Win !");
-        }
-
-        void Discover_Map()
-        {
-            for (int i = 1; i <= Height; i++)
-                for (int j = 1; j <= Width; j++)
-                    if (buttons[i, j].Enabled == true)
-                    {
-                        set_ButtonImage(i, j);
-                    }
+            
         }
 
         void set_ButtonImage(int x, int y)
@@ -323,78 +269,69 @@ namespace Minesweeper
             buttons[x, y].Enabled = false;
             buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
 
-            if (GameOver && ButtonProperties[x, y] == flag_value)
-                ButtonProperties[x, y] = SavedButtonProperties[x, y];
-
-            if (GameOver)
-                timer1.Stop();
 
             if (ButtonProperties[x, y] == 0)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.blank;
-                buttons[x, y].Text = "0";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.tileImage;
+                //buttons[x, y].Text = "0";
                 EmptySpace(x, y);
             }
-            else if(ButtonProperties[x, y] == 1)
+            else if (ButtonProperties[x, y] == 1)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "1";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number1;
+                //buttons[x, y].Text = "1";
             }
             else if (ButtonProperties[x, y] == 2)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "2";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number2;
+                //buttons[x, y].Text = "2";
             }
             else if (ButtonProperties[x, y] == 3)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "3";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number3;
+                //buttons[x, y].Text = "3";
             }
             else if (ButtonProperties[x, y] == 4)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "4";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number4;
+                //buttons[x, y].Text = "4";
             }
             else if (ButtonProperties[x, y] == 5)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "5";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number5;
+                //buttons[x, y].Text = "5";
             }
             else if (ButtonProperties[x, y] == 6)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "6";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number6;
+                //buttons[x, y].Text = "6";
             }
             else if (ButtonProperties[x, y] == 7)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "7";
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number7;
+                //buttons[x, y].Text = "7";
             }
             else if (ButtonProperties[x, y] == 8)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                //buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources._1;
-                buttons[x, y].Text = "8";
-            }
-            else if (ButtonProperties[x, y] == 9)
-            {
-                buttons[x, y].Enabled = true;
+                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number8;
+                //buttons[x, y].Text = "8";
             }
             else if (ButtonProperties[x, y] == -1)
             {
-                buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
-                buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bombImage;
                 if (!GameOver)
-                    GameOver_();
+                    GameOver_(x, y);
             }
+            smileMan.BackgroundImageLayout = ImageLayout.Stretch;
+            smileMan.BackgroundImage = Minesweeper.Properties.Resources.normalSmile;
         }
 
         void EmptySpace(int x, int y)
@@ -419,40 +356,97 @@ namespace Minesweeper
             }
         }
 
-        void GameOver_()
+        // Conditions for game to be won
+        void CheckWin()
         {
-            GameOver = true;
-            Discover_Map();
-            MessageBox.Show("Game Over!");
-        }
+            int bombsPlusFlags = 0;
+            int enabledButtons = 0;
 
-        private void TableMargins()
-        {
-            Start_x = (this.Size.Width - (Width + 2) * DistanceBetween) / 2;
-            Start_y = (this.Size.Height - (Height + 2) * DistanceBetween) / 2;
-        }
-
-
-
-        public GameMain()
-        {
-            InitializeComponent();
-        }
-
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            Seconds++;
-
-            if (Seconds == 60)
+            for (int i = 1; i <= Height; i++)
             {
-                Minutes++;
-                Seconds = 0;
+                for (int j = 1; j <= Width; j++)
+                {
+                    if (buttons[i, j].Enabled == true)
+                    {
+                        enabledButtons++;
+                    }
+                    if (ButtonProperties[i, j] == -1 || ButtonProperties[i, j] == 9)
+                    {
+                        bombsPlusFlags++;
+                    }
+                }
+            }
+
+            if (bombsPlusFlags == enabledButtons)
+            {
+                WinGame();
             }
         }
 
-        private void Game_Load(object sender, EventArgs e)
+
+        // After game is won
+        void WinGame()
         {
+            GameOver = true;
+            Discover_Map_Win();
+            smileMan.BackgroundImageLayout = ImageLayout.Stretch;
+            smileMan.BackgroundImage = Minesweeper.Properties.Resources.gameWon;
+            //gameProgress.Value = 0;
+            MessageBox.Show("Win !!!");
+            Application.Exit();
+        }
+
+        // After game over
+        void GameOver_(int x, int y)
+        {
+            GameOver = true;
+            Discover_Map_Lose();
+            buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
+            buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.bombExplode;
+            smileMan.BackgroundImageLayout = ImageLayout.Stretch;
+            smileMan.BackgroundImage = Minesweeper.Properties.Resources.lostGameSmile;
+            MessageBox.Show("Game Over !!!");
+            Application.Exit();
+        }
+
+        void Discover_Map_Win()
+        {
+            for (int i = 1; i <= Height; i++)
+                for (int j = 1; j <= Width; j++)
+                {
+                    if (ButtonProperties[i, j] == 9 || ButtonProperties[i, j] == -1)
+                    {
+                        buttons[i, j].BackgroundImageLayout = ImageLayout.Stretch;
+                        buttons[i, j].BackgroundImage = Minesweeper.Properties.Resources.brokenBombWin;
+                    }
+                    else
+                    {
+                        set_ButtonImage(i, j);
+                    }
+                }
 
         }
+
+
+
+        void Discover_Map_Lose()
+        {
+            for (int i = 1; i <= Height; i++)
+                for (int j = 1; j <= Width; j++)
+                {
+                    if (ButtonProperties[i, j] == 9 || ButtonProperties[i, j] == -1)
+                    {
+                        buttons[i, j].BackgroundImageLayout = ImageLayout.Stretch;
+                        buttons[i, j].BackgroundImage = Minesweeper.Properties.Resources.brokenBomb;
+                    }
+                    else
+                    {
+                        set_ButtonImage(i, j);
+                    }
+
+                }
+        }
+
+
     }
 }

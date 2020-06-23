@@ -28,34 +28,53 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameMain));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.numFlags = new System.Windows.Forms.Label();
+            this.smileMan = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // timer1
+            // numFlags
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            this.numFlags.AutoSize = true;
+            this.numFlags.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.numFlags.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numFlags.ForeColor = System.Drawing.Color.Red;
+            this.numFlags.Location = new System.Drawing.Point(161, 19);
+            this.numFlags.Name = "numFlags";
+            this.numFlags.Size = new System.Drawing.Size(121, 18);
+            this.numFlags.TabIndex = 0;
+            this.numFlags.Text = "Number of flags :";
+            // 
+            // smileMan
+            // 
+            this.smileMan.Enabled = false;
+            this.smileMan.Location = new System.Drawing.Point(327, 9);
+            this.smileMan.Name = "smileMan";
+            this.smileMan.Size = new System.Drawing.Size(40, 40);
+            this.smileMan.TabIndex = 1;
+            this.smileMan.UseVisualStyleBackColor = true;
             // 
             // GameMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Minesweeper.Properties.Resources.ms;
-            this.ClientSize = new System.Drawing.Size(912, 512);
+            this.ClientSize = new System.Drawing.Size(684, 416);
+            this.Controls.Add(this.smileMan);
+            this.Controls.Add(this.numFlags);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GameMain";
             this.Text = "Minesweeper ";
             this.Load += new System.EventHandler(this.GameMain_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label numFlags;
+        private System.Windows.Forms.Button smileMan;
     }
 }
 

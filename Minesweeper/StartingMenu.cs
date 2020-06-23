@@ -20,9 +20,9 @@ namespace Minesweeper
         //Start button for the game on starting  page 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            Player player = new Player();
+            Difficulty diff = new Difficulty(); 
             this.Hide();
-            player.ShowDialog();
+            diff.ShowDialog();
         }
 
         // Description how to play the game 
