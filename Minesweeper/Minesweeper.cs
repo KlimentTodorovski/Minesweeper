@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Minesweeper
 {
+    [Serializable]
 
     public partial class GameMain : Form
     {
@@ -62,6 +66,9 @@ namespace Minesweeper
         // usiing y
         int[] PointsAroundY = { 0, 1, 0, -1, 1, -1, 1, -1 };
 
+        string FileName = null;
+
+        public static List<Players> gamePlayers = new List<Players>();
 
         //After we gather all the needed information about the start of the game 
         //we neeed to generate the map which is a matrix of buttons 
@@ -78,6 +85,11 @@ namespace Minesweeper
         {
             //When page loads start the process for creating the grid for gameplay 
             Play();
+        }
+
+        public static List<Players> getPlayers()
+        {
+            return gamePlayers;
         }
 
         private void Play()
@@ -280,56 +292,47 @@ namespace Minesweeper
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.tileImage;
-                //buttons[x, y].Text = "0";
                 EmptySpace(x, y);
             }
             else if (ButtonProperties[x, y] == 1)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number1;
-                //buttons[x, y].Text = "1";
             }
             else if (ButtonProperties[x, y] == 2)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number2;
-                //buttons[x, y].Text = "2";
             }
             else if (ButtonProperties[x, y] == 3)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number3;
-                //buttons[x, y].Text = "3";
             }
             else if (ButtonProperties[x, y] == 4)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number4;
-                //buttons[x, y].Text = "4";
             }
             else if (ButtonProperties[x, y] == 5)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number5;
-                //buttons[x, y].Text = "5";
             }
             else if (ButtonProperties[x, y] == 6)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number6;
-                //buttons[x, y].Text = "6";
             }
             else if (ButtonProperties[x, y] == 7)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number7;
-                //buttons[x, y].Text = "7";
             }
             else if (ButtonProperties[x, y] == 8)
             {
                 buttons[x, y].BackgroundImageLayout = ImageLayout.Stretch;
                 buttons[x, y].BackgroundImage = Minesweeper.Properties.Resources.number8;
-                //buttons[x, y].Text = "8";
             }
             else if (ButtonProperties[x, y] == -1)
             {
@@ -400,44 +403,33 @@ namespace Minesweeper
             //gameProgress.Value = 0;
             CheckPlayerInBestFive();
             MessageBox.Show("Win !!!");
-            Application.Exit();
+            StartingMenu sm = new StartingMenu();
+            this.Hide();
+            sm.ShowDialog();
         }
 
         private void CheckPlayerInBestFive()
         {
             int PlayerTimeInSeconds = Minutes * 60 + Seconds;
-            if(PlayerTimeInSeconds < StartingMenu.LastPlayerTimeInSeconds)
+            string time = Minutes + ":" + Seconds;
+            Players player = new Players(Player.NameOfPlayer, time, Difficulty.MapHeight + "x" + Difficulty.MapWidth, NumberOfBombs.Bombs);
+            gamePlayers.Insert(0, player);
+            gamePlayers.Sort((a, b) => {
+                return a.GetTimeInSeconds().CompareTo(b.GetTimeInSeconds());
+            });
+            if(gamePlayers.Count == 6)
             {
-                int [] TimesOfPlayers = GetTimesOfPlayers();
-                for (int i = 0; i < 5; i++)
-                {
-                    if(PlayerTimeInSeconds < TimesOfPlayers[i])
-                    {
-                        string player = "";
-                        player += Player.NameOfPlayer + " ";
-                        player += Minutes + ":" + Seconds + " ";
-                        player += Difficulty.MapHeight + "x" + Difficulty.MapWidth + " ";
-                        player += NumberOfBombs.BombsInPercent;
-                        StartingMenu.bestFive[i] = player;
-                        StartingMenu.WriteInFile();
-                        label2.Text = player;
-                    }
-                }
+                gamePlayers.RemoveAt(gamePlayers.Count - 1);
             }
         }
 
-        private int [] GetTimesOfPlayers()
+        public int LastPlayerTimeInSeconds()
         {
-            int [] TimesOfPlayers = new int [5];
-
-            for (int i = 0; i < 5; i++)
+            if(gamePlayers.Count == 0)
             {
-                string [] PlayerInfo = StartingMenu.bestFive[i].Split(' ');
-                string [] TimeOfPlayer = PlayerInfo[1].Split(':');
-                TimesOfPlayers[i] = Int32.Parse(TimeOfPlayer[0]) * 60 + Int32.Parse(TimeOfPlayer[1]);
+                return Int32.MaxValue;
             }
-
-            return TimesOfPlayers;
+            return gamePlayers.ElementAt(gamePlayers.Count - 1).GetTimeInSeconds();
         }
 
         // After game over
@@ -450,7 +442,9 @@ namespace Minesweeper
             smileMan.BackgroundImageLayout = ImageLayout.Stretch;
             smileMan.BackgroundImage = Minesweeper.Properties.Resources.lostGameSmile;
             MessageBox.Show("Game Over !!!");
-            Application.Exit();
+            StartingMenu sm = new StartingMenu();
+            this.Hide();
+            sm.ShowDialog();
         }
 
         void Discover_Map_Win()
@@ -508,7 +502,5 @@ namespace Minesweeper
 
                 }
         }
-
-
     }
 }

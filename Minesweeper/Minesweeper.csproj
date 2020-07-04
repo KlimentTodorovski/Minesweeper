@@ -95,6 +95,7 @@
     <Compile Include="NumberOfBombs.Designer.cs">
       <DependentUpon>NumberOfBombs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Players.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartingMenu.cs">

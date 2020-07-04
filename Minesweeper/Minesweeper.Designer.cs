@@ -36,7 +36,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.time = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // numFlags
@@ -90,22 +89,12 @@
             this.time.Size = new System.Drawing.Size(0, 24);
             this.time.TabIndex = 3;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
-            // 
             // GameMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Minesweeper.Properties.Resources.ms;
             this.ClientSize = new System.Drawing.Size(912, 512);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.time);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.smileMan);
@@ -127,7 +116,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label time;
-        private System.Windows.Forms.Label label2;
     }
 }
 

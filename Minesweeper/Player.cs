@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace Minesweeper
 {
+    [Serializable]
+
     public partial class Player : Form
     {
         public static string NameOfPlayer { get; set; }
