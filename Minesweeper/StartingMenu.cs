@@ -14,8 +14,6 @@ using System.Windows.Forms;
 
 namespace Minesweeper
 {
-    [Serializable]
-
     public partial class StartingMenu : Form
     {
         List<Players> players = new List<Players>();

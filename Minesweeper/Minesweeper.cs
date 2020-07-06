@@ -14,7 +14,6 @@ using System.Windows.Forms;
 
 namespace Minesweeper
 {
-    [Serializable]
 
     public partial class GameMain : Form
     {
