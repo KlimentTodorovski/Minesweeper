@@ -43,7 +43,6 @@ namespace Minesweeper
 
 
         // Number of mines 
-        //int Mines = ((Difficulty.MapHeight * Difficulty.MapWidth) / 100) * NumberOfBombs.BombsPercent;
         int Mines = NumberOfBombs.Bombs;
         // Development value for flag 
         int flag_value = 9;
@@ -355,8 +354,6 @@ namespace Minesweeper
                     {
                         if (buttons[cx, cy].Enabled == true && ButtonProperties[cx, cy] != -1 && !GameOver)
                         {
-                            //gameProgress.Value++;
-                            //score.Text = "Score: " + gameProgress.Value.ToString();
                             set_ButtonImage(cx, cy);
                         }
                     }
@@ -399,7 +396,6 @@ namespace Minesweeper
             Discover_Map_Win();
             smileMan.BackgroundImageLayout = ImageLayout.Stretch;
             smileMan.BackgroundImage = Minesweeper.Properties.Resources.gameWon;
-            //gameProgress.Value = 0;
             CheckPlayerInBestFive();
             MessageBox.Show("Win !!!");
             StartingMenu sm = new StartingMenu();
