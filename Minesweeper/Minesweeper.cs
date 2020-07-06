@@ -449,6 +449,7 @@ namespace Minesweeper
 
         void Discover_Map_Win()
         {
+            numFlags.Text = "Game Won";
             for (int i = 1; i <= Height; i++)
                 for (int j = 1; j <= Width; j++)
                 {
@@ -487,13 +488,19 @@ namespace Minesweeper
 
         void Discover_Map_Lose()
         {
+            numFlags.Text = "Game Over";
             for (int i = 1; i <= Height; i++)
                 for (int j = 1; j <= Width; j++)
                 {
-                    if (ButtonProperties[i, j] == 9 || ButtonProperties[i, j] == -1)
+                    if ((ButtonProperties[i, j] == 9 && SavedButtonProperties[i, j] == -1) 
+                        || (ButtonProperties[i,j])==-1)
                     {
                         buttons[i, j].BackgroundImageLayout = ImageLayout.Stretch;
                         buttons[i, j].BackgroundImage = Minesweeper.Properties.Resources.brokenBomb;
+                    }else if(ButtonProperties[i, j] == 9 || SavedButtonProperties[i, j] != -1)
+                    {
+                        ButtonProperties[i, j] = SavedButtonProperties[i, j];
+                        set_ButtonImage(i, j);
                     }
                     else
                     {

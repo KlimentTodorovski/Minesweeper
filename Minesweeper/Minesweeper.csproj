@@ -161,6 +161,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\brown1.jpg" />
     <None Include="Resources\best_5.txt" />
     <None Include="Resources\shockedSmile.jpg" />
     <None Include="Resources\normalSmile.jpg" />

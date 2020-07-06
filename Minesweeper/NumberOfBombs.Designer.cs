@@ -37,10 +37,9 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button1.Location = new System.Drawing.Point(337, 127);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(253, 103);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(268, 36);
+            this.button1.Size = new System.Drawing.Size(201, 29);
             this.button1.TabIndex = 0;
             this.button1.Text = "10 %";
             this.button1.UseVisualStyleBackColor = false;
@@ -49,10 +48,9 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button2.Location = new System.Drawing.Point(337, 222);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Location = new System.Drawing.Point(253, 180);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(268, 36);
+            this.button2.Size = new System.Drawing.Size(201, 29);
             this.button2.TabIndex = 1;
             this.button2.Text = "20 %";
             this.button2.UseVisualStyleBackColor = false;
@@ -61,10 +59,9 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button3.Location = new System.Drawing.Point(337, 319);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Location = new System.Drawing.Point(253, 259);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(268, 36);
+            this.button3.Size = new System.Drawing.Size(201, 29);
             this.button3.TabIndex = 2;
             this.button3.Text = "30 %";
             this.button3.UseVisualStyleBackColor = false;
@@ -72,15 +69,14 @@
             // 
             // NumberOfBombs
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::Minesweeper.Properties.Resources.ms;
-            this.ClientSize = new System.Drawing.Size(912, 512);
+            this.BackgroundImage = global::Minesweeper.Properties.Resources.brown1;
+            this.ClientSize = new System.Drawing.Size(684, 416);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "NumberOfBombs";
             this.Text = "Minesweeper";
             this.ResumeLayout(false);

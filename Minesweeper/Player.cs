@@ -28,5 +28,7 @@ namespace Minesweeper
             this.Hide();
             diff.ShowDialog();
         }
+
+
     }
 }

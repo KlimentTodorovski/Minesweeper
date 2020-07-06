@@ -61,9 +61,11 @@ namespace Minesweeper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to test
-        ///text
-        ///tenk.
+        ///   Looks up a localized string similar to Kliment 1:22 10x10 10%
+        ///Nikola 1:42 8x8 20%
+        ///Petar 2:01 10x10 10%
+        ///Dragan 2:04 10x10 10%
+        ///Tose 7:13 8x8 20%.
         /// </summary>
         internal static string best_5 {
             get {
@@ -107,6 +109,16 @@ namespace Minesweeper.Properties {
         internal static System.Drawing.Bitmap brokenBombWin {
             get {
                 object obj = ResourceManager.GetObject("brokenBombWin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap brown1 {
+            get {
+                object obj = ResourceManager.GetObject("brown1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
